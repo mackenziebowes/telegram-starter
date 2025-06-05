@@ -1,0 +1,16 @@
+{
+  "discord": {
+    "token": "YOUR_DISCORD_BOT_TOKEN", 
+    "clientId": "YOUR_DISCORD_CLIENT_ID"
+  },
+  "server": {
+    "port": 3050,
+    "cors": {
+      "origin": "http://localhost:3000"
+    }
+  },
+  "features": {
+    "commands": ["ping"],
+    "autoRegisterCommands": true
+  }
+}
