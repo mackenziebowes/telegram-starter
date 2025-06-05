@@ -1,7 +1,7 @@
 {
-  "discord": {
-    "token": "YOUR_DISCORD_BOT_TOKEN", 
-    "clientId": "YOUR_DISCORD_CLIENT_ID"
+  "telegram": {
+    "token": "YOUR_TELEGRAM_BOT_TOKEN",
+    "botUsername": "YOUR_TELEGRAM_BOT_USERNAME"
   },
   "server": {
     "port": 3050,
@@ -10,7 +10,7 @@
     }
   },
   "features": {
-    "commands": ["ping"],
+    "commands": ["ping", "server"],
     "autoRegisterCommands": true
   }
 }

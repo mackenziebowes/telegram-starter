@@ -1,28 +1,28 @@
-# Discord Bot Starter Kit
+# Telegram Bot Starter Kit
 
-A ready-to-deploy Discord bot server built with Hono and TypeScript.
+A ready-to-deploy Telegram bot server built with Hono and TypeScript.
 
 ## Getting Started
 
 ### Prerequisites
 
 - [Bun](https://bun.sh/) installed
-- A Discord application with a bot token
+- A Telegram bot token from BotFather
 
-### Setup Discord Bot
+### Setup Telegram Bot
 
-1. Go to [Discord Developer Portal](https://discord.com/developers/applications)
-2. Create a new application
-3. Navigate to the "Bot" tab and create a bot
-4. Copy your bot token and client ID
+1. Open Telegram and search for [@BotFather](https://t.me/botfather)
+2. Send `/newbot` to create a new bot
+3. Follow the instructions to choose a name and username for your bot
+4. Copy your bot token from the success message
 
 ### Installation
 
 1. Clone this repository:
 
 ```sh
-git clone https://github.com/mackenziebowes/discord-starter.git
-cd discord-starter/server
+git clone https://github.com/mackenziebowes/telegram-starter.git
+cd telegram-starter/server
 ```
 
 2. Install dependencies:
@@ -37,13 +37,13 @@ bun install
 cp config.example.json config.json
 ```
 
-4. Edit the `config.json` file with your Discord bot token and client ID:
+4. Edit the `config.json` file with your Telegram bot token and username:
 
 ```json
 {
-	"discord": {
-		"token": "YOUR_DISCORD_BOT_TOKEN",
-		"clientId": "YOUR_DISCORD_CLIENT_ID"
+	"telegram": {
+		"token": "YOUR_TELEGRAM_BOT_TOKEN",
+		"botUsername": "YOUR_TELEGRAM_BOT_USERNAME"
 	}
 }
 ```
@@ -54,9 +54,9 @@ cp config.example.json config.json
 bun run dev
 ```
 
-## Bot Invitation
+## Bot Link
 
-To invite your bot to a server, use this URL (replace YOUR_CLIENT_ID):
+To get the link to your bot, run:
 
 ```sh
 bun run generate:invite
@@ -64,17 +64,16 @@ bun run generate:invite
 
 ## Features
 
-- Built-in slash command registration
-- Express-like API for command handling
+- Built-in command registration
+- Simple API for command handling
 - Environment variable management
 - Configuration via config.json
 - API endpoints for bot management
 
 ## API Endpoints
 
-- `GET /vona/discord/status` - Get bot status
-- `GET /vona/discord/guilds` - Get list of connected Discord servers
-- `POST /vona/discord/register-commands` - Register slash commands manually
+- `GET /vona/telegram/status` - Get bot status
+- `POST /vona/telegram/register-commands` - Register commands manually
 
 ## Architecture Overview
 
@@ -84,46 +83,48 @@ bun run generate:invite
 
 ## Adding New Commands
 
-1. Edit the commands.ts file to add new slash commands:
+1. Create a new command file in the commands directory:
 
 ```typescript
-// src/library/services/discord/commands.ts
-const commands = [
-	{
-		name: "ping",
-		description: "Replies with Pong!",
+// src/library/services/telegram/commands/your-command.ts
+import { Context } from "telegraf";
+import { TelegramCommand } from "./index";
+
+export const yourCommand: TelegramCommand = {
+	name: "your-command",
+	description: "Your command description",
+
+	async execute(ctx: Context) {
+		await ctx.reply("Your command response");
 	},
-	{
-		name: "your-command",
-		description: "Your command description",
-		options: [
-			{
-				name: "option-name",
-				description: "Option description",
-				type: 3, // STRING type
-				required: true,
-			},
-		],
-	},
-];
+};
 ```
 
-2. Handle the command in index.ts:
+2. Register your command in the commands index file:
 
 ```typescript
-// src/library/services/discord/index.ts
-client.on(Events.InteractionCreate, async (interaction) => {
-	if (!interaction.isCommand()) return;
+// src/library/services/telegram/commands/index.ts
+import { pingCommand } from "./ping";
+import { serverCommand } from "./server";
+import { yourCommand } from "./your-command";
+import { Context } from "telegraf";
 
-	const { commandName } = interaction;
+// Command interface
+export interface TelegramCommand {
+	name: string;
+	description: string;
+	execute: (ctx: Context) => Promise<void>;
+}
 
-	if (commandName === "ping") {
-		await interaction.reply("Pong!");
-	} else if (commandName === "your-command") {
-		const option = interaction.options.getString("option-name");
-		await interaction.reply(`You provided: ${option}`);
-	}
-});
+// Export array of commands
+const commands: TelegramCommand[] = [
+	pingCommand,
+	serverCommand,
+	yourCommand,
+	// Add more commands here
+];
+
+export default commands;
 ```
 
 ## Deployment

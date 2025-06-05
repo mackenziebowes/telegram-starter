@@ -13,8 +13,8 @@ async function generateENV() {
 	const email_host = "mail.mackenziebowes.com";
 	const email_user = "mackenzie";
 	const email_password = "null";
-	const discord_token = "YOUR_DISCORD_BOT_TOKEN"; // Replace with your Discord bot token
-	const discord_client_id = "YOUR_DISCORD_CLIENT_ID"; // Replace with your Discord client ID
+	const telegram_token = "YOUR_TELEGRAM_BOT_TOKEN"; // Replace with your Telegram bot token
+	const telegram_bot_username = "YOUR_TELEGRAM_BOT_USERNAME"; // Replace with your Telegram bot username
 
 	const envContent = `
 HASH_KEY="${hash_key}"
@@ -25,8 +25,8 @@ CORS_ORIGIN="${cors_origin}"
 EMAIL_HOST="${email_host}"
 EMAIL_USER="${email_user}"
 EMAIL_PASSWORD="${email_password}"
-DISCORD_TOKEN="${discord_token}"
-DISCORD_CLIENT_ID="${discord_client_id}"
+TELEGRAM_TOKEN="${telegram_token}"
+TELEGRAM_BOT_USERNAME="${telegram_bot_username}"
 `.trim();
 
 	await fs.writeFile(".env.generated", envContent, "utf8");

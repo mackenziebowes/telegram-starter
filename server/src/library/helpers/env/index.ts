@@ -9,8 +9,8 @@ export function init() {
 	env.email_host.init();
 	env.email_password.init();
 	env.email_user.init();
-	env.discord_token.init();
-	env.discord_client_id.init();
+	env.telegram_token.init();
+	env.telegram_bot_username.init();
 }
 
 export { env };

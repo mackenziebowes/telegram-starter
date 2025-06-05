@@ -3,9 +3,9 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 // Type definitions for config.json
-export interface DiscordConfig {
+export interface TelegramConfig {
   token: string;
-  clientId: string;
+  botUsername: string;
 }
 
 export interface ServerConfig {
@@ -21,16 +21,16 @@ export interface FeaturesConfig {
 }
 
 export interface Config {
-  discord: DiscordConfig;
+  telegram: TelegramConfig;
   server: ServerConfig;
   features: FeaturesConfig;
 }
 
 // Default configuration
 const defaultConfig: Config = {
-  discord: {
+  telegram: {
     token: '',
-    clientId: '',
+    botUsername: '',
   },
   server: {
     port: 3050,
@@ -39,7 +39,7 @@ const defaultConfig: Config = {
     },
   },
   features: {
-    commands: ['ping'],
+    commands: ['ping', 'server'],
     autoRegisterCommands: true,
   },
 };
@@ -59,9 +59,9 @@ export async function loadConfig(): Promise<Config> {
     return {
       ...defaultConfig,
       ...config,
-      discord: {
-        ...defaultConfig.discord,
-        ...config.discord,
+      telegram: {
+        ...defaultConfig.telegram,
+        ...config.telegram,
       },
       server: {
         ...defaultConfig.server,

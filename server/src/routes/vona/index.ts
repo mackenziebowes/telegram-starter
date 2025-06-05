@@ -1,7 +1,7 @@
 import { Hono } from "hono";
 import { auth as AMW, type AuthEnv } from "~/library/middleware/auth";
 import user from "./user";
-import discord from "./discord";
+import telegram from "./telegram";
 // import auth from "./auth";
 
 const app = new Hono();
@@ -13,6 +13,6 @@ app.route("/user", user);
 app.use(AMW);
 
 // Protected routes
-app.route("/discord", discord);
+app.route("/telegram", telegram);
 
 export default app;

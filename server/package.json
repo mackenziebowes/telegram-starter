@@ -1,24 +1,22 @@
 {
-	"name": "discord-starter-kit",
-	"description": "Discord bot starter kit with Hono server",
+	"name": "telegram-starter-kit",
+	"description": "Telegram bot starter kit with Hono server",
 	"scripts": {
 		"dev": "bun run --hot src/index.ts",
 		"trl": "bun run --hot src/client/route-loader.ts",
 		"local": "bun run",
 		"generate:env": "bun run src/local/generate_env.ts",
-		"generate:invite": "bun run src/local/generate_invite.ts",
+		"generate:invite": "bun run src/local/generate_telegram_link.ts",
 		"build": "bun build src/index.ts --outdir ./dist"
 	},
 	"dependencies": {
-		"@discordjs/rest": "^2.5.0",
 		"@ods/db": "../prisma",
 		"@types/nodemailer": "^6.4.17",
-		"discord-api-types": "^0.38.11",
-		"discord.js": "^14.19.3",
 		"hono": "^4.7.10",
 		"jose": "^6.0.11",
 		"nodemailer": "^7.0.3",
-		"solid-js": "^1.9.7"
+		"solid-js": "^1.9.7",
+		"telegraf": "^4.15.3"
 	},
 	"devDependencies": {
 		"@types/bun": "latest"
